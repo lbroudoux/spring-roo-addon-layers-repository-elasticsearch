@@ -1,0 +1,2 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2013-10-06 13:14:17
+addon create advanced --topLevelPackage com.github.lbroudoux.roo.addon.layers.repository.elasticsearch
