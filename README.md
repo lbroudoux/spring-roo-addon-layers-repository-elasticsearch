@@ -17,3 +17,27 @@ Getting Started
 
 Installation
 ------------
+
+Commands
+--------
+
+```
+elasticsearch setup
+```
+
+```
+entity elasticsearch --class ~.domain.Tweet
+```
+
+```
+repository elasticsearch --interface ~.repository.TweetRepository --entity ~.domain.Tweet
+```
+
+```
+service --interface ~.service.TweetService --entity ~.domain.Tweet
+```
+
+
+
+License
+=======

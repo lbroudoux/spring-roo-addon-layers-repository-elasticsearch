@@ -85,7 +85,8 @@ public enum RepositoryElasticsearchLayerMethod {
    FIND_ALL("findAll", FIND_ALL_METHOD) {
       @Override
       public String getCall(final List<MethodParameter> parameters) {
-         return "findAll()";
+         //return "findAll()";
+         return "findAll(new org.springframework.data.domain.PageRequest(0, Math.max(1, (int)countAll()))).getContent()";
       }
       @Override
       public List<JavaSymbolName> getParameterNames(final JavaType entityType, final JavaType idType) {

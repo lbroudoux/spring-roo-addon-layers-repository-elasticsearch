@@ -66,7 +66,13 @@ public class ElasticsearchEntityMetadata extends AbstractItdTypeDetailsProviding
             return;
         }
 
+        // Add spring data Persistent annotation.
         builder.addAnnotation(getTypeAnnotation(SpringJavaType.PERSISTENT));
+        // Add spring data elasticsearch Document annotation.
+        AnnotationMetadataBuilder annotationBuilder = new AnnotationMetadataBuilder(new JavaType("org.springframework.data.elasticsearch.annotations.Document"));
+        annotationBuilder.addStringAttribute("indexName", getJavaType(identifier).getSimpleTypeName().toLowerCase() + "s");
+        annotationBuilder.addStringAttribute("type", getJavaType(identifier).getSimpleTypeName().toLowerCase());
+        builder.addAnnotation(annotationBuilder.build());
 
         idField = getIdentifierField();
         if (idField != null) {

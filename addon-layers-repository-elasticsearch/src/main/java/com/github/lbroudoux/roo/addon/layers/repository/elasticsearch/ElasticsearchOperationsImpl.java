@@ -201,16 +201,15 @@ public class ElasticsearchOperationsImpl implements ElasticsearchOperations {
       final Element root = document.getDocumentElement();
       Element esClient = null;
       
-      if (local != null && local){
-         esClient = document.createElement("elasticsearch:node-client");
-         esClient.setAttribute("id", "client");
-         esClient.setAttribute("local", "true");
-         root.appendChild(esClient);
-      }
-      else if (StringUtils.isNotBlank(clusterNodes)){
+      if (StringUtils.isNotBlank(clusterNodes)){
          esClient = document.createElement("elasticsearch:transport-client");
          esClient.setAttribute("id", "client");
          esClient.setAttribute("cluster-nodes", clusterNodes);
+         root.appendChild(esClient);
+      } else {
+         esClient = document.createElement("elasticsearch:node-client");
+         esClient.setAttribute("id", "client");
+         esClient.setAttribute("local", "true");
          root.appendChild(esClient);
       }
       

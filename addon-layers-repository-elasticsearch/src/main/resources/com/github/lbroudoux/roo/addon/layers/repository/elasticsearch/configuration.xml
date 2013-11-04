@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
-   <repositories>
-       <repository>
-           <id>spring-maven-snapshot</id>
-           <name>Spring Maven SNAPSHOT Repository</name>
-           <url>http://maven.springframework.org/snapshot</url>
-       </repository>
-   </repositories>
    <spring-data-elasticsearch>
+      <repositories>
+         <repository>
+            <id>spring-maven-snapshot</id>
+            <name>Spring Maven SNAPSHOT Repository</name>
+            <url>http://maven.springframework.org/snapshot</url>
+         </repository>
+      </repositories>
       <dependencies>
          <dependency org="javax.persistence" name="persistence-api" rev="1.0" />
          <dependency org="javax.validation" name="validation-api" rev="1.0.0.GA" />
