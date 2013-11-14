@@ -13,7 +13,7 @@
          <dependency org="javax.validation" name="validation-api" rev="1.0.0.GA" />
          <dependency org="org.hibernate" name="hibernate-validator" rev="4.2.0.Final" />
          <dependency org="org.springframework.data" name="spring-data-elasticsearch" rev="1.0.0.BUILD-SNAPSHOT" />
-         <dependency org="com.github.lbroudoux.roo.addon.layers.repository.elasticsearch" name="com.github.lbroudoux.roo.addon.layers.repository.elasticsearch" rev="0.1.0.BUILD-SNAPSHOT" scope="compile" />
+         <dependency org="com.github.lbroudoux.roo.addon" name="com.github.lbroudoux.roo.addon.layers.repository.elasticsearch" rev="0.1.0.BUILD-SNAPSHOT" scope="compile" />
       </dependencies>
    </spring-data-elasticsearch>
 </configuration>

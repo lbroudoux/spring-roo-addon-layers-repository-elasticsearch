@@ -123,7 +123,7 @@ public class ElasticsearchOperationsImpl implements ElasticsearchOperations {
               PhysicalTypeCategory.INTERFACE);
         cidBuilder.addAnnotation(interfaceAnnotationMetadata.build());
         
-        final JavaType listType = new JavaType(List.class.getName(), 0,
+        final JavaType listType = new JavaType(Iterable.class.getName(), 0,
               DataType.TYPE, null, Arrays.asList(domainType));
         cidBuilder.addMethod(new MethodMetadataBuilder(interfaceMdId, 0,
               new JavaSymbolName("findAll"), listType,

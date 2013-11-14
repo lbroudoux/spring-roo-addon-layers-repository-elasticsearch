@@ -33,8 +33,6 @@
 	<properties>
 		<roo.version>1.2.2.RELEASE</roo.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<google.code.project.name>${project.name}</google.code.project.name>
-		<repo.folder>com/github/lbroudoux/roo/addon/layers/repository/elasticsearch</repo.folder>
 	</properties>
 	<repositories>
 		<repository>
@@ -197,7 +195,7 @@
 						<Bundle-DocURL>${project.url}</Bundle-DocURL>
 					</instructions>
 					<remoteOBR>true</remoteOBR>
-					<bundleUrl>httppgp://repo.maven.apache.org//${repo.folder}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar</bundleUrl>
+					<bundleUrl>httppgp://repo.maven.apache.org/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar</bundleUrl>
 				</configuration>
 			</plugin>
 			<plugin>

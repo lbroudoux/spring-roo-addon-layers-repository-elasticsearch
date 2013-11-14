@@ -17,6 +17,7 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.roo.classpath.customdata.tagkeys.MethodMetadataCustomDataKey;
 import org.springframework.roo.classpath.layers.LayerType;
 import org.springframework.roo.classpath.layers.MethodParameter;
+import org.springframework.roo.model.DataType;
 import org.springframework.roo.model.JavaSymbolName;
 import org.springframework.roo.model.JavaType;
 
@@ -85,8 +86,7 @@ public enum RepositoryElasticsearchLayerMethod {
    FIND_ALL("findAll", FIND_ALL_METHOD) {
       @Override
       public String getCall(final List<MethodParameter> parameters) {
-         //return "findAll()";
-         return "findAll(new org.springframework.data.domain.PageRequest(0, Math.max(1, (int)countAll()))).getContent()";
+         return "findAll()";
       }
       @Override
       public List<JavaSymbolName> getParameterNames(final JavaType entityType, final JavaType idType) {
@@ -98,7 +98,7 @@ public enum RepositoryElasticsearchLayerMethod {
       }
       @Override
       public JavaType getReturnType(final JavaType entityType) {
-         return JavaType.listOf(entityType);
+         return new JavaType(Iterable.class.getName(), 0, DataType.TYPE, null, Arrays.asList(entityType));
       }
    },
    /**
