@@ -50,22 +50,46 @@ you should see a line like this one telling that addon is installed :
 Commands
 --------
 
+In order to explain commands, the easiest is to illustrate their usage through a fully working example. So here it is : the classical Twitter example ! 
+
+First step : create a new Spring roo project using the project command within the Roo shell.
+```
+project --topLevelPackage com.github.lbroudoux.es
+```
+
+Now, setup this plugin using this simple command. This command assume the default, quick starting options : Elasticsearch will be ran in local mode within your Spring Roo app JVM. 
 ```
 elasticsearch setup
 ```
+However, you may want a way more elaborate (and recommanded !) configuration that employs a cluster of Elasticsearch nodes. Just use this variation :
+```
+elasticsearch setup --local false --clusterNodes mynode1:9300,mynode2:9300
+```
+Tadam ! The configuration is handled for you !
 
+
+Next step consists in declaring the domain class you want to persist within Elasticsearch. For that, you'll just have to use the `entity` command of Roo, specifying you want an Elasticsearch entity like that :
 ```
 entity elasticsearch --class ~.domain.Tweet
 ```
+You can now use traditional Roo commands for defining fields and constraints applying to the domain objects you will store :
+```
+field string --fieldName content --sizeMax 140
+``` 
 
+For now, we'll create the repository layer for our `Tweet` domain objects like any other repository in Roo, just telling we want an Elasticsearch one :
 ```
 repository elasticsearch --interface ~.repository.TweetRepository --entity ~.domain.Tweet
 ```
 
+Finaly, if we wan't a CRUD service layer for our domain object (usefull if you want to start with Roo web scaffolding), you'll have to add this 3 commands :  
 ```
 service --interface ~.service.TweetService --entity ~.domain.Tweet
+web mvc setup
+web mvc all --package ~.web
 ```
 
+Now just start your Roo application within your favorite container (or via `mvn tomcat:run`), open your browser and go to `http://localhost:8080/es` : you have a fully workingSpring application that persists its domain objects within Elasticsearch !  
 
 
 License
@@ -74,7 +98,7 @@ License
 ```
 This software is licensed under the Apache 2 license, quoted below.
 
-Copyright 2013 Laurent Broudoux
+Copyright 2014 Laurent Broudoux
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
