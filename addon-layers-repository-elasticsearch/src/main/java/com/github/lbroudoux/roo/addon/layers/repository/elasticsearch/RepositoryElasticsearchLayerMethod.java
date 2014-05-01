@@ -47,7 +47,7 @@ public enum RepositoryElasticsearchLayerMethod {
 
    COUNT("count", COUNT_ALL_METHOD) {
       @Override
-      public String getCall(List<MethodParameter> parameters) {
+      public String getCall(List<MethodParameter> parameters, String repositoryFieldName) {
          return "count()";
       }
       @Override
@@ -66,7 +66,7 @@ public enum RepositoryElasticsearchLayerMethod {
    },
    DELETE("delete", REMOVE_METHOD) {
       @Override
-      public String getCall(List<MethodParameter> parameters) {
+      public String getCall(List<MethodParameter> parameters, String repositoryFieldName) {
          return "delete(" + parameters.get(0).getValue() + ")";
       }
       @Override
@@ -84,7 +84,7 @@ public enum RepositoryElasticsearchLayerMethod {
    },
    FIND("find", FIND_METHOD) {
       @Override
-      public String getCall(final List<MethodParameter> parameters) {
+      public String getCall(final List<MethodParameter> parameters, String repositoryFieldName) {
          return "findOne(" + parameters.get(0).getValue() + ")";
       }
       @Override
@@ -102,8 +102,10 @@ public enum RepositoryElasticsearchLayerMethod {
    },
    FIND_ALL("findAll", FIND_ALL_METHOD) {
       @Override
-      public String getCall(final List<MethodParameter> parameters) {
-         return "findAll()";
+      public String getCall(final List<MethodParameter> parameters, String repositoryFieldName) {
+         //return "findAll()";
+         return "findAll(new org.springframework.data.domain.PageRequest("
+            + "0, Math.max(1, (int)" + repositoryFieldName + ".count()))).getContent()";
       }
       @Override
       public List<JavaSymbolName> getParameterNames(final JavaType entityType, final JavaType idType) {
@@ -125,7 +127,7 @@ public enum RepositoryElasticsearchLayerMethod {
     */
    FIND_ENTRIES("findEntries", FIND_ENTRIES_METHOD) {
       @Override
-      public String getCall(final List<MethodParameter> parameters) {
+      public String getCall(final List<MethodParameter> parameters, String repositoryFieldName) {
           final JavaSymbolName firstResultParameter = parameters.get(0).getValue();
           final JavaSymbolName maxResultsParameter = parameters.get(1).getValue();
           final String pageNumberExpression = firstResultParameter + " / " + maxResultsParameter;
@@ -152,7 +154,7 @@ public enum RepositoryElasticsearchLayerMethod {
     */
    SAVE("save", MERGE_METHOD, PERSIST_METHOD) {
       @Override
-      public String getCall(final List<MethodParameter> parameters) {
+      public String getCall(final List<MethodParameter> parameters, String repositoryFieldName) {
          return "save(" + parameters.get(0).getValue() + ")";
       }
       @Override
@@ -219,9 +221,10 @@ public enum RepositoryElasticsearchLayerMethod {
     * Returns a Java snippet that invokes this method (minus the target)
     * @param parameters the parameters used by the caller; can be
     * <code>null</code>
+    * @param repositoryFieldName The name of the repository within aspect
     * @return a non-blank Java snippet
     */
-   public abstract String getCall(List<MethodParameter> parameters);
+   public abstract String getCall(List<MethodParameter> parameters, String repositoryFieldName);
 
    /**
     * Returns the names of this method's declared parameters

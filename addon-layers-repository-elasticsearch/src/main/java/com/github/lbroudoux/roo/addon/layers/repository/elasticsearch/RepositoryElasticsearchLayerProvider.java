@@ -108,7 +108,7 @@ public class RepositoryElasticsearchLayerProvider extends CoreLayerProvider {
               repositoryFieldName), repositoryType));
 
       // Create the additions to invoke the given method on this field
-      final String methodCall = repositoryFieldName + "." + method.getCall(parameters);
+      final String methodCall = repositoryFieldName + "." + method.getCall(parameters, repositoryFieldName);
       return new MemberTypeAdditions(cidBuilder, method.getName(),
               methodCall, false, parameters);
    }

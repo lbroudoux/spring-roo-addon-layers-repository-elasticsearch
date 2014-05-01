@@ -51,11 +51,13 @@ import org.springframework.roo.model.JavaType;
 import org.springframework.roo.model.RooJavaType;
 import org.springframework.roo.process.manager.FileManager;
 import org.springframework.roo.process.manager.MutableFile;
+import org.springframework.roo.project.Dependency;
 import org.springframework.roo.project.Path;
 import org.springframework.roo.project.PathResolver;
 import org.springframework.roo.project.ProjectOperations;
-import org.springframework.roo.project.Dependency;
+import org.springframework.roo.project.Property;
 import org.springframework.roo.project.Repository;
+import org.springframework.roo.project.maven.Pom;
 import org.springframework.roo.support.util.FileUtils;
 import org.springframework.roo.support.util.XmlUtils;
 import org.w3c.dom.Document;
@@ -188,6 +190,18 @@ public class ElasticsearchOperationsImpl implements ElasticsearchOperations {
 
        projectOperations.addRepositories(moduleName, repositories);
        projectOperations.addDependencies(moduleName, dependencies);
+       
+       // spring-data-elasticsearch-1.0.0-M1 and other needs spring-context-3.2.5 or other.
+       // However Spring ROO 1.2.2 is just on spring-context-3.1.1. We need to upgrade this if
+       // user has not already pick an up-to-date version of Spring ...
+       final Pom pom = projectOperations.getPomFromModuleName(moduleName);
+       final Document document = XmlUtils.readXml(fileManager.getInputStream(pom.getPath()));
+       final Element root = document.getDocumentElement();
+       final Element value = XmlUtils.findFirstElement("/project/properties/spring.version", root);
+       // Use a lexicographic comparison in case of already set.
+       if (value == null || value.getTextContent().compareTo("3.2.5.RELEASE") < 0){
+          projectOperations.addProperty(moduleName, new Property("spring.version", "3.2.5.RELEASE"));
+       }
     }
     
     private void manageAppCtx(final Boolean local, final String clusterNodes, final String moduleName){
