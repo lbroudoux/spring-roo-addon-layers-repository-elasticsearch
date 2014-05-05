@@ -1,0 +1,10 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2014-05-05 23:08:51
+project --topLevelPackage com.github.lbroudoux.es
+elasticsearch setup --local false --clusterNodes localhost:9300
+entity elasticsearch --class ~.domain.Tweet
+field string --fieldName author
+field string --fieldName content --sizeMax 140
+repository elasticsearch --interface ~.repository.TweetRepository --entity ~.domain.Tweet
+service --interface ~.service.TweetService --entity ~.domain.Tweet
+web mvc setup
+web mvc all --package ~.web

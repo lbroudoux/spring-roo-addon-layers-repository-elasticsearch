@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_github_lbroudoux_es_domain_Tweet" object="${tweet}" path="/tweets" z="9NIf8dJCnIY5Ke4wOc3KdyP0+wY=">
+        <field:display field="author" id="s_com_github_lbroudoux_es_domain_Tweet_author" object="${tweet}" z="NGAx6zW8M2lpWiSMOmcKhAlO51o="/>
+        <field:display field="content" id="s_com_github_lbroudoux_es_domain_Tweet_content" object="${tweet}" z="hgxHwRZ3WTj6cLQRYnEyo3eSHC8="/>
+    </page:show>
+</div>
